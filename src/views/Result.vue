@@ -1,15 +1,20 @@
 <template>
-    <div class="container">
+    <section class="container">
+        <AnonymousMessage :messages="['Winner winner chicken dinner!', 'xd']"/>
 
-    </div>
+
+    </section>
 </template>
 
 <script>
+    import AnonymousMessage from "./components/AnonymousMessage";
+
     export default {
-        name: "Result"
+        name: "Result",
+
+        components: {AnonymousMessage}
     }
 </script>
 
 <style scoped>
-
 </style>
