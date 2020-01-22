@@ -16,9 +16,19 @@ const routes = [
     component: () => import(/* webpackChunkName: "input" */"../views/Input")
   },
   {
+    path: '/guessPreview',
+    name: 'guessPreview',
+    component: () => import(/* webpackChunkName: "result" */"../views/GuessPreview")
+  },
+  {
     path: '/result',
     name: 'result',
     component: () => import(/* webpackChunkName: "result" */"../views/Result")
+  },
+  {
+    path: '/end',
+    name: 'end',
+    component: () => import(/* webpackChunkName: "result" */"../views/End")
   },
 ];
 
