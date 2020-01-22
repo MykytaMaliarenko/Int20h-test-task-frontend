@@ -4,9 +4,11 @@
             <font-awesome-icon icon="question" size="lg"/>
         </div>
 
-        <div class="message">
-            {{message}}
-        </div>
+        <section class="messages">
+            <div class="message" v-for="message in messages">
+                {{message}}
+            </div>
+        </section>
     </section>
 </template>
 
@@ -15,8 +17,8 @@
         name: "AnonymousMessage",
 
         props: {
-            message: {
-                type: String,
+            messages: {
+                type: Array,
                 required: true,
             }
         },
@@ -32,40 +34,45 @@
 
         .image
             display: flex
-            align-items: center
+            align-items: flex-end
 
             svg
                 font-size: 2rem
 
-        .message
-            display: inline-block
-            border-radius: 20px
-            padding: 8px 15px
-            margin-top: 5px
-            margin-bottom: 5px
-            margin-left: 20px
-            background-color:  lighten($background, 20%)
-            position: relative
+        .messages
+            display: flex
+            flex-direction: column
 
-            &:before
-                content: ""
-                position: absolute
-                z-index: 0
-                bottom: 0
-                left: -7px
-                height: 20px
-                width: 20px
-                background: lighten($background, 20%)
-                border-bottom-right-radius: 15px
+            .message
+                display: inline-block
+                border-radius: 20px
+                padding: 8px 15px
+                margin-top: 5px
+                margin-bottom: 5px
+                margin-left: 20px
+                background-color:  lighten($background, 20%)
+                position: relative
 
-            &:after
-                content: ""
-                position: absolute
-                z-index: 1
-                bottom: 0
-                left: -10px
-                width: 10px
-                height: 20px
-                background: $background
-                border-bottom-right-radius: 10px
+                &:last-child
+                    &:before
+                        content: ""
+                        position: absolute
+                        z-index: 0
+                        bottom: 0
+                        left: -7px
+                        height: 20px
+                        width: 20px
+                        background: lighten($background, 20%)
+                        border-bottom-right-radius: 15px
+
+                    &:after
+                        content: ""
+                        position: absolute
+                        z-index: 1
+                        bottom: 0
+                        left: -10px
+                        width: 10px
+                        height: 20px
+                        background: $background
+                        border-bottom-right-radius: 10px
 </style>
