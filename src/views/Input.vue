@@ -1,9 +1,7 @@
 <template>
     <div class="container">
 
-        <div style="height: 15vh"></div>
-
-        <AnonymousMessage message="Let's begin! Make me a song" />
+        <AnonymousMessage :messages="['Let\'s begin! Make me a song']" />
 
         <div class="type">
             <p v-on:click="type='lyrics'" v-bind:class="{'active': type === 'lyrics'}">Lyrics</p>
@@ -58,8 +56,7 @@
 
     .container
         margin: auto
-        max-width: 500px
-        font-family: 'Lato', sans-serif
+        max-width: 300px
 
         .data
             $inactive-color: darken($font-on-background, 50%)
@@ -126,7 +123,7 @@
                             color: $font-on-background
 
         .type
-            margin-top: 10vh
+            margin-top: 1rem
             margin-bottom: 20px
             display: flex
             justify-content: space-evenly
