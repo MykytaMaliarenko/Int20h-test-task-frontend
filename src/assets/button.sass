@@ -1,0 +1,17 @@
+@import "theme.sass"
+
+@mixin button
+    margin-top: 25px
+    background-color: darken($background, 10%)
+    border-radius: 5px
+    border: 0
+    color: $font-on-background
+    font-size: 15px
+    padding: 10px 35px
+    outline: none
+    cursor: pointer
+    transition: 0.25s
+
+    &:hover, &:focus
+        background-color: lighten($background, 10%)
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
