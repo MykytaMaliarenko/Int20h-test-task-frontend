@@ -1,10 +1,9 @@
 <template>
     <div class="container">
-        <div data-v-8d97ae00="" style="height: 35vh;"></div>
-        <AnonymousMessage message="Do you wanna play ?)" />
+        <AnonymousMessage :messages="['Hello!', 'Do you wanna play ?)']" />
 
         <section class="button-container">
-            <button v-on:click="begin">Yes</button>
+            <button v-on:click="begin">Do I have a choice...</button>
         </section>
 
     </div>
@@ -30,16 +29,15 @@
     @import "../assets/button"
 
     .container
+        max-width: 300px
         margin: auto
-        max-width: 200px
 
-    .button-container
-        display: flex
-        justify-content: center
-        font-family: 'Lato', sans-serif
+        .button-container
+            display: flex
+            justify-content: center
+            font-family: 'Lato', sans-serif
 
-        button
-           @include button
-
-
+            button
+                margin-top: 25px
+                @include button
 </style>
