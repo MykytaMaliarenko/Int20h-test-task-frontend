@@ -67,7 +67,7 @@
             userResponse(response) {
                 this.isGuessed(response);
 
-                if (this.round === 5) {
+                if (this.round >= 5) {
                     this.end();
                     this.$router.push({name: 'end'});
                 } else {
@@ -99,8 +99,14 @@
         watch: {
             isWaitingForGuessResults: function (val) {
                if (!val) {
-                   if (this.lastRoundResult && this.lastRoundResult.notFound)
-                       this.$router.push({ name: 'result'});
+                   if (this.lastRoundResult && this.lastRoundResult.notFound) {
+                       if (this.round >= 5) {
+                           this.end();
+                           this.$router.push({name: 'end'});
+                       } else {
+                           this.$router.push({name: 'result'});
+                       }
+                   }
 
                    setTimeout(() => {
                        let cont = document.getElementsByClassName('player')[0];
