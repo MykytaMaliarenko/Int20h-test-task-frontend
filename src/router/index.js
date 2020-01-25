@@ -37,6 +37,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
+  base: "/Int20h-test-task-frontend/",
   routes
 });
 
