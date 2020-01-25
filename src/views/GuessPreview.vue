@@ -106,6 +106,7 @@
                        } else {
                            this.$router.push({name: 'result'});
                        }
+                       return
                    }
 
                    setTimeout(() => {
