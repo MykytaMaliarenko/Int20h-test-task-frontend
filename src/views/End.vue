@@ -77,10 +77,10 @@
 
             if (wonRounds > lostRounds) {
                 this.messages = WIN_MESSAGES;
-            } else if(wonRounds === lostRounds) {
-                this.messages = DRAW_MESSAGES;
-            } else {
+            } else if(wonRounds < lostRounds) {
                 this.messages = LOOSE_MESSAGES;
+            } else {
+                this.messages = DRAW_MESSAGES;
             }
 
             this.messages.push(`Your score is: ${wonRounds}`);
