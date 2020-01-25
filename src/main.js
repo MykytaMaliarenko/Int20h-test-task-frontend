@@ -12,7 +12,7 @@ import ApiService from "./api";
 library.add(faSearch, faQuestion, faMicrophone, faMicrophoneSlash);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-ApiService.init("http://localhost:5000");
+ApiService.init("https://int20h-2020.herokuapp.com");
 
 Vue.config.productionTip = false;
 
