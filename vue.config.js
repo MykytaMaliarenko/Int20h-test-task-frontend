@@ -1,3 +1,4 @@
 module.exports = {
-    publicPath: 'https://mykytamaliarenko.github.io/Int20h-test-task-frontend/'
+    publicPath: "/Int20h-test-task-frontend",
+    outputDir: "docs"
 };
