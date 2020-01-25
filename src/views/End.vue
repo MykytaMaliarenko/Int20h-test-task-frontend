@@ -4,7 +4,7 @@
 
         <div class="cards">
 
-            <div class="card" v-for="data in roundResults">
+            <div class="card" v-for="data in roundResults.filter()">
                 <img :src="data.image"/>
 
                 <section class="info">

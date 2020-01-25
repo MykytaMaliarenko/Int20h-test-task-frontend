@@ -72,7 +72,7 @@ export const getters = {
     },
 
     roundResults(state) {
-        return state.roundResults;
+        return state.roundResults.filter((item) => !('notFound' in item));
     },
 
     lastRoundResult(state) {
