@@ -104,8 +104,10 @@
             },
 
             searchByLyrics() {
-                this.makeGuess({type: this.type, data: this.lyrics});
-                this.$router.push({ name: 'guessPreview'});
+                if (this.lyrics.length !== 0) {
+                    this.makeGuess({type: this.type, data: this.lyrics});
+                    this.$router.push({ name: 'guessPreview'});
+                }
             },
 
             searchByHumming(){
