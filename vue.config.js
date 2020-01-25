@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: 'Int20h-test-task-frontend'
+    publicPath: 'https://mykytamaliarenko.github.io/Int20h-test-task-frontend/'
 };
