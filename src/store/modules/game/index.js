@@ -27,12 +27,8 @@ export const actions = {
             } catch (e) {
                 console.log({e});
             }
-            if (result.status !== 200) {
-                if (result.status === 404) {
-                    commit(ADD_RESULT, {notFound: true});
-                } else {
-                    throw `bad status ${result.status}: ${result.statusText}`;
-                }
+            if (result === undefined) {
+                commit(ADD_RESULT, {notFound: true});
             } else {
                 commit(ADD_RESULT, result.data);
             }

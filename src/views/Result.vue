@@ -18,6 +18,7 @@
 
     const WIN_MESSAGES = ['Winner winner chicken dinner!', 'xd', 'one more round ?)'];
     const LOOSE_MESSAGES = ['it\'s just not my day', '(((((', 'one more round?'];
+    const NOT_FOUND = ['I couldn\'t find smth', '(((((', 'one more round?'];
 
     export default {
         name: "Result",
@@ -28,7 +29,8 @@
             return {
                 messages: {
                     WIN_MESSAGES,
-                    LOOSE_MESSAGES
+                    LOOSE_MESSAGES,
+                    NOT_FOUND
                 },
 
                 currentMessages: [],
@@ -60,7 +62,9 @@
         },
 
         mounted() {
-            if (this.lastRoundResult.notFound || !this.lastRoundResult.isGuessed) {
+            if (this.lastRoundResult.notFound) {
+                this.currentMessages = this.messages.NOT_FOUND
+            } else if (!this.lastRoundResult.isGuessed) {
                 this.currentMessages = this.messages.LOOSE_MESSAGES
             } else {
                 this.currentMessages = this.messages.WIN_MESSAGES
