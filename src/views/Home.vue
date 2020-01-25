@@ -12,16 +12,25 @@
 <script>
     import AnonymousMessage from "./components/AnonymousMessage";
 
+    import { mapMutations } from 'vuex';
+    import modules from "../store/all.modules.name"
+    import mutations from "../store/all.mutations.type"
+
     export default {
         name: "Home",
 
         components: {AnonymousMessage},
 
         methods: {
+            ...mapMutations(modules.game, [
+                mutations.game.START
+            ]),
+
             begin() {
-                this.$router.push({ name: 'input'})
+                this.start();
+                this.$router.push({ name: 'input'});
             }
-        }
+        },
     }
 </script>
 

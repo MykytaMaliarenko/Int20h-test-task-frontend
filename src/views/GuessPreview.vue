@@ -1,30 +1,28 @@
 <template>
-    <div class="container">
-        <AnonymousMessage :messages="['Sooooo.....', 'Am I right?']"/>
+    <div class="container" v-if="!isWaitingForGuessResults">
+        <AnonymousMessage :messages="[`Round: ${round}/5`,'Sooooo.....', 'Am I right?']"/>
 
         <div class="card">
 
             <section class="top">
-                <img  src="https://e-cdns-images.dzcdn.net/images/cover/2e018122cb56986277102d2041a592c8/150x150-000000-80-0-0.jpg"/>
+                <img :src="lastRoundResult.image"/>
 
                 <section class="info">
 
                     <div class="title">
-                        <span>In to Deep</span>
+                        <span>{{lastRoundResult.name}}</span>
                     </div>
 
                     <div class="subtitle">
-                        <span>Music To Be Murdered By</span>
+                        <span>{{lastRoundResult.album}}</span>
                         •
-                        <span>Eminem</span>
+                        <span>{{lastRoundResult.author}}</span>
                     </div>
 
                     <div class="add-info">
-                        <span>#47810</span>
+                        <span>#{{lastRoundResult.rank}}</span>
                         •
-                        <span>2001-03-07</span>
-                        •
-                        <span>03:02</span>
+                        <span>{{lastRoundResult.duration | duration}}</span>
                     </div>
                 </section>
 
@@ -36,37 +34,95 @@
             </section>
 
             <section class="bottom">
-                <button class="no">No</button>
-                <button class="yes">Yes</button>
+                <button class="no" v-on:click="userResponse(false)">No</button>
+                <button class="yes" v-on:click="userResponse(true)">Yes</button>
             </section>
         </div>
+    </div>
+
+    <div class="container" v-else>
+        <moon-loader color="#BB86FC" :loading="isWaitingForGuessResults" :size="150" sizeUnit="px"></moon-loader>
     </div>
 </template>
 
 <script>
     import AnonymousMessage from "./components/AnonymousMessage";
+    import { MoonLoader } from '@saeris/vue-spinners'
+
+    import { mapGetters, mapMutations } from 'vuex';
+    import modules from "../store/all.modules.name"
+    import mutations from "../store/all.mutations.type"
 
     export default {
         name: "Result",
 
-        components: {AnonymousMessage},
+        components: {AnonymousMessage, MoonLoader},
 
-        mounted() {
-            let cont = document.getElementsByClassName('player')[0];
-            console.log({width: cont.innerWidth});
-            let width = (cont.innerWidth) >= 500 ? 500 : cont.innerWidth;
-            DZ.init({
-                appId  : '8',
-                channelUrl : 'http://developers.deezer.com/examples/channel.php',
-                player : {
-                    container : 'player',
-                    cover : true,
-                    playlist : true,
-                    width : width,
-                    height : 92,
+        methods: {
+            ...mapMutations(modules.game, [
+                mutations.game.IS_GUESSED,
+                mutations.game.END,
+            ]),
+
+            userResponse(response) {
+                this.isGuessed(response);
+
+                if (this.round === 5) {
+                    this.end();
+                    this.$router.push({name: 'end'});
+                } else {
+                    this.$router.push({name: 'result'});
                 }
-            });
-        }
+            }
+        },
+
+        computed: {
+            ...mapGetters(modules.game, [
+                "lastRoundResult",
+                "isWaitingForGuessResults",
+                "round"
+            ]),
+        },
+
+        filters: {
+            duration: function (value) {
+                let minutes = Math.floor(Number(value) / 60),
+                    seconds = value - minutes * 60;
+
+                minutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+                seconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+
+                return `${minutes}:${seconds}`
+            }
+        },
+
+        watch: {
+            isWaitingForGuessResults: function (val) {
+               if (!val) {
+                   if (this.lastRoundResult && this.lastRoundResult.notFound)
+                       this.$router.push({ name: 'result'});
+
+                   setTimeout(() => {
+                       let cont = document.getElementsByClassName('player')[0];
+                       let width = (cont.innerWidth) >= 500 ? 500 : cont.innerWidth;
+                       DZ.init({
+                           appId  : '391564',
+                           channelUrl : 'http://developers.deezer.com/examples/channel.php',
+                           player : {
+                               container : 'player',
+                               cover : false,
+                               playlist : false,
+                               width : width,
+                               height : 92,
+                               onload: () => {
+                                   DZ.player.playTracks([this.lastRoundResult.song_id], false);
+                               }
+                           }
+                       });
+                   }, 200);
+               }
+            },
+        },
     }
 </script>
 

@@ -42,6 +42,7 @@
         .messages
             display: flex
             flex-direction: column
+            align-items: flex-start
 
             .message
                 display: inline-block
